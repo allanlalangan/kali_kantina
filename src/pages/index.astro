@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import hero_image from '../assets/mae-mu-LgnE31R9PGc-unsplash.jpg';
 const services = [
 	{
 		name: 'Events',
@@ -33,7 +35,7 @@ const services = [
 	<body class="bg-amber-50">
 		<header class="absolute flex w-full items-center justify-between p-4">
 			<nav>
-				<ul class="flex gap-4">
+				<ul class="flex gap-4 text-white lg:text-black">
 					<li>
 						<a
 							href="#"
@@ -50,7 +52,7 @@ const services = [
 					</li>
 				</ul>
 			</nav>
-			<div class="flex items-center">
+			<div class="flex items-center border-b-2 pb-2 text-white">
 				<a href="#">
 					<svg
 						class="h-12 w-12"
@@ -76,26 +78,43 @@ const services = [
 			</div>
 		</header>
 		<main class="">
-			<section class="flex h-screen flex-col items-center justify-center p-4">
-				<div class="flex flex-col">
-					<span class="font-display text-6xl">Kali Kantina</span>
+			<section
+				class="flex h-screen w-full items-center justify-center bg-black/40 text-white lg:justify-between lg:bg-inherit lg:text-black"
+			>
+				<div class="flex flex-col p-2 lg:p-4">
+					<span class="mx-auto font-display text-6xl lg:mx-0">Kali Kantina</span
+					>
 					<!-- <span class="font-display text-4xl text-emerald-900">
 						Filipino street food
 					</span> -->
+					<p class="text-xl">
+						Vancouver, Washington's own Filipino street food stand.
+					</p>
+					<button
+						class="mx-auto mt-4 w-fit bg-emerald-900 px-6 pb-4 pt-3 text-lg text-white transition hover:bg-emerald-800 active:bg-emerald-950 lg:mx-0 lg:w-auto"
+						>View Our Menu</button
+					>
 				</div>
-				<p class="text-xl">
-					Vancouver, Washington's own Filipino street food stand.
-				</p>
-				<button
-					class="mt-4 rounded-bl-lg rounded-tr-lg bg-emerald-900 px-6 pb-4 pt-3 text-lg text-white transition hover:bg-emerald-800 active:bg-emerald-950"
-					>View Our Menu</button
-				>
+				<div class="absolute -z-10 h-full w-full lg:static lg:w-1/2">
+					<Image
+						class="h-full w-full object-cover"
+						src={hero_image}
+						alt="A bird."
+					/>
+				</div>
 			</section>
-			<section class="grid grid-cols-12 bg-emerald-950 p-4 px-16 text-white">
-				<h2 class="col-span-12 mx-auto p-4 text-4xl">About</h2>
-				<article class="col-span-12 flex flex-col p-4 lg:flex-row">
-					<div class="h-full border border-amber-50 lg:w-1/2"></div>
-					<div class="flex flex-col text-xl lg:w-1/2">
+			<section class="grid grid-cols-12 bg-emerald-950 text-white">
+				<div class="col-span-12 h-[50vh] lg:col-span-6">
+					<Image
+						class="h-full w-full object-cover"
+						src={hero_image}
+						alt="A bird."
+					/>
+				</div>
+
+				<article class="col-span-12 flex flex-col lg:col-span-6">
+					<h2 class="mx-4 text-4xl">About</h2>
+					<div class="flex flex-col text-xl">
 						<p class="w-full p-4">
 							Craft beer 8-bit lumbersexual sriracha YOLO forage fixie
 							single-origin coffee fam taiyaki organic shoreditch shaman
@@ -108,7 +127,7 @@ const services = [
 					</div>
 				</article>
 			</section>
-			<section class="grid grid-cols-12 bg-zinc-900 p-4 px-16 text-white">
+			<section class="grid grid-cols-12 bg-zinc-900 text-white">
 				<p
 					class="col-span-12 mx-auto flex flex-col items-center justify-center gap-4 p-4 text-2xl uppercase tracking-wide lg:flex-row"
 				>
@@ -117,18 +136,20 @@ const services = [
 					<span>Veteran Owned</span>
 				</p>
 			</section>
-			<section class="grid grid-cols-12 bg-gray-950 p-4 px-16 text-white">
-				<h2 class="col-span-12 mx-auto p-4 text-4xl">Our Services</h2>
-				<div class="col-span-12 flex flex-col gap-2 lg:gap-4">
+			<section class="grid grid-cols-12 bg-gray-950 text-white">
+				<div class="col-span-12 flex flex-col">
+					<h2 class="col-span-12 p-2 text-4xl lg:p-4">Our Services</h2>
 					{
 						services.map((service, i) => (
-							<article
-								class={`flex flex-col ${
-									(i + 1) % 2 === 0 ? 'lg:flex-row-reverse ' : 'lg:flex-row'
-								} p-4 text-xl`}
-							>
-								<div class="h-full border border-amber-50 lg:w-1/2" />
-								<div class="flex flex-col lg:w-1/2">
+							<article class={`flex flex-col text-xl lg:flex-row-reverse`}>
+								<div class="h-[50vh] lg:w-1/2">
+									<Image
+										class="h-full w-full object-cover"
+										src={hero_image}
+										alt="A bird."
+									/>
+								</div>
+								<div class="flex flex-col justify-center lg:w-1/2">
 									<h3 class="px-4 text-2xl">{service.name}</h3>
 									<p class="w-full p-4">{service.description}</p>
 								</div>
