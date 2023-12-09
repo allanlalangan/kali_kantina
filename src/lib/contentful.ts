@@ -1,4 +1,4 @@
-import contentful from 'contentful';
+import contentful, { type EntryFieldTypes } from 'contentful';
 
 export const contentfulClient = contentful.createClient({
 	space: import.meta.env.CONTENTFUL_SPACE_ID,
@@ -7,3 +7,31 @@ export const contentfulClient = contentful.createClient({
 		: import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
 	host: import.meta.env.DEV ? 'preview.contentful.com' : 'cdn.contentful.com',
 });
+
+export interface EntryImage {
+	fields: {
+		title: string;
+		file: {
+			fileName: string;
+			contentType: string;
+			details: {
+				image: {
+					width: number;
+					height: number;
+				};
+				size: number;
+			};
+			url: string;
+		};
+		description: string;
+	};
+}
+
+export interface Service {
+	contentTypeId: 'service';
+	fields: {
+		name: EntryFieldTypes.Symbol;
+		description: EntryFieldTypes.Text;
+		image: EntryFieldTypes.AssetLink;
+	};
+}
