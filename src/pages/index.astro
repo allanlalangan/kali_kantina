@@ -1,23 +1,17 @@
 ---
+import { contentfulClient, type EntryImage } from '../lib/contentful';
+import { type Service } from '../lib/contentful';
 import { Image } from 'astro:assets';
 import hero_image from '../assets/mae-mu-LgnE31R9PGc-unsplash.jpg';
-const services = [
-	{
-		name: 'Events',
-		description:
-			'Lyft vegan before they sold out prism pickled, cloud bread la croix fit. Gastropub schlitz blog art party scenester pour-over. Marfa shabby chic lo-fi coloring book gochujang air plant, yuccie echo park skateboard wolf typewriter poutine.',
-	},
-	{
-		name: 'Catering',
-		description:
-			'Street art palo santo yes plz 8-bit, la croix tumblr mukbang bruh. Shabby chic tousled letterpress meditation, photo booth 3 wolf moon artisan yr locavore flannel cloud bread trust fund. Brunch lumbersexual semiotics big mood portland celiac.',
-	},
-	{
-		name: 'Special Orders',
-		description:
-			'Fit waistcoat hexagon, actually brunch wolf chicharrones. Yr woke swag venmo 90s selfies leggings iPhone DIY. Humblebrag pug tbh kale chips tumeric 3 wolf moon listicle chambray iceland synth godard.',
-	},
-];
+
+const serviceEntries = await contentfulClient.getEntries<Service>({
+	content_type: 'service',
+});
+
+const services = serviceEntries.items.map((entry) => {
+	const { name, description } = entry.fields;
+	return { name, description, image: entry.fields.image as EntryImage };
+});
 ---
 
 <html lang="en">
@@ -88,9 +82,6 @@ const services = [
 				<div class="flex flex-col p-2 lg:p-4">
 					<span class="mx-auto font-display text-6xl lg:mx-0">Kali Kantina</span
 					>
-					<!-- <span class="font-display text-4xl text-emerald-900">
-						Filipino street food
-					</span> -->
 					<p class="text-xl">
 						Vancouver, Washington's own Filipino street food stand.
 					</p>
@@ -138,13 +129,16 @@ const services = [
 				<h2 class="col-span-12 mx-auto p-2 text-4xl lg:p-4">Our Services</h2>
 				<div class="col-span-12 flex flex-col lg:flex-row">
 					{
-						services.map((service, i) => (
-							<article class="flex flex-col text-xl">
+						services.map((service) => (
+							<article class="flex flex-1 flex-col text-xl">
 								<div class="h-[50vh]">
 									<Image
-										class="h-full w-full object-cover"
-										src={hero_image}
-										alt="A bird."
+										width={service.image.fields.file.details.image.width / 5}
+										height={service.image.fields.file.details.image.height / 5}
+										format="webp"
+										class="h-full w-full flex-1 object-cover"
+										src={`https:${service.image.fields.file.url}`}
+										alt={service.image.fields.description}
 									/>
 								</div>
 								<div class="flex flex-col justify-center p-2 lg:p-4">
