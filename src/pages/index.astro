@@ -6,7 +6,7 @@ import {
 } from '../lib/contentful';
 import { type Service } from '../lib/contentful';
 import { Image } from 'astro:assets';
-// import '../styles/global.css';
+import '../styles/global.css';
 
 const serviceEntries = await contentfulClient.getEntries<Service>({
 	content_type: 'service',
@@ -45,7 +45,7 @@ const about = {
 		>
 			<nav>
 				<ul
-					class="mt-2 flex flex-col items-end gap-2 text-3xl text-white md:text-xl lg:mt-0 lg:flex-row lg:items-start lg:gap-4 lg:text-lg lg:text-black"
+					class="mt-2 flex flex-col items-end gap-2 text-4xl text-white lg:mt-0 lg:flex-row lg:items-start lg:gap-4 lg:text-lg lg:text-black"
 				>
 					<li>
 						<a
@@ -92,14 +92,13 @@ const about = {
 			<section
 				class="relative flex h-screen w-full items-center justify-center bg-black/40 text-white lg:justify-between lg:bg-inherit lg:text-black"
 			>
-				<div class="flex flex-col p-2 lg:p-4">
-					<span class="mx-auto font-display text-6xl lg:mx-0">Kali Kantina</span
-					>
-					<p class="text-xl">
+				<div class="flex flex-col items-center p-2 lg:items-start lg:p-4">
+					<span class="font-display text-8xl lg:mx-0">Kali Kantina</span>
+					<p class="text-center text-4xl lg:text-start lg:text-2xl">
 						Vancouver, Washington's own Filipino street food stand.
 					</p>
 					<button
-						class="mx-auto mt-4 w-fit bg-emerald-900 px-6 pb-4 pt-3 text-lg text-white transition hover:bg-emerald-800 active:bg-emerald-950 lg:mx-0 lg:w-auto"
+						class="mx-auto mt-4 w-fit bg-emerald-900 px-10 pb-7 pt-6 text-2xl text-white transition hover:bg-emerald-800 active:bg-emerald-950 lg:mx-0 lg:w-auto lg:px-6 lg:pb-4 lg:pt-3"
 						>View Our Menu</button
 					>
 				</div>
@@ -126,11 +125,11 @@ const about = {
 				</div>
 
 				<article
-					class="col-span-12 row-start-1 flex flex-col p-2 lg:col-span-6 lg:row-start-auto lg:p-4"
+					class="col-span-12 row-start-1 flex flex-col p-8 lg:col-span-6 lg:row-start-auto lg:p-4"
 				>
-					<h2 class="mx-auto text-4xl lg:mx-0">{about.title}</h2>
-					<div class="flex flex-col text-xl">
-						<p class="w-full">
+					<h2 class="mx-auto mb-8 text-6xl lg:mx-0">{about.title}</h2>
+					<div class="flex flex-col">
+						<p class="w-full text-2xl">
 							{about.bio}
 						</p>
 					</div>
@@ -138,11 +137,11 @@ const about = {
 			</section>
 
 			<section class="grid grid-cols-12">
-				<h2 class="col-span-12 mx-auto p-2 text-4xl lg:p-4">Our Services</h2>
+				<h2 class="col-span-12 mx-auto p-8 text-6xl lg:p-4">Our Services</h2>
 				<div class="col-span-12 flex flex-col lg:flex-row">
 					{
 						services.map((service) => (
-							<article class="flex flex-1 flex-col text-xl">
+							<article class="flex flex-1 flex-col">
 								<div class="h-[50vh]">
 									<Image
 										width={service.image.fields.file.details.image.width / 5}
@@ -153,9 +152,9 @@ const about = {
 										alt={service.image.fields.description}
 									/>
 								</div>
-								<div class="flex flex-col justify-center p-2 lg:p-4">
-									<h3 class="text-2xl capitalize">{service.name}</h3>
-									<p class="w-full">{service.description}</p>
+								<div class="flex flex-col justify-center p-8 lg:p-4">
+									<h3 class="mb-4 text-4xl capitalize">{service.name}</h3>
+									<p class="w-full text-2xl">{service.description}</p>
 								</div>
 							</article>
 						))
