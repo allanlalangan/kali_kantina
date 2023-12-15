@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
 	font-family: 'Kawit';
 	src: url('/fonts/KawitFree-ExtItalic.otf') format('opentype');
