@@ -4,6 +4,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
+				body: ['Outfit', 'sans-serif'],
 				display: ['Kawit', 'serif'],
 			},
 		},
