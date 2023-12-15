@@ -6,7 +6,7 @@ import {
 } from '../lib/contentful';
 import { type Service } from '../lib/contentful';
 import { Image } from 'astro:assets';
-import '../styles/global.css';
+// import '../styles/global.css';
 
 const serviceEntries = await contentfulClient.getEntries<Service>({
 	content_type: 'service',
@@ -39,13 +39,13 @@ const about = {
 		/>
 		<title>Kali Kantina</title>
 	</head>
-	<body class="font-body bg-amber-50">
+	<body class="relative bg-amber-50 font-body">
 		<header
 			class="absolute flex w-full flex-col-reverse items-end justify-between p-4 lg:flex-row lg:items-center"
 		>
 			<nav>
 				<ul
-					class="mt-2 flex flex-col items-end gap-2 text-2xl text-white md:text-xl lg:mt-0 lg:flex-row lg:items-start lg:gap-4 lg:text-lg lg:text-black"
+					class="mt-2 flex flex-col items-end gap-2 text-3xl text-white md:text-xl lg:mt-0 lg:flex-row lg:items-start lg:gap-4 lg:text-lg lg:text-black"
 				>
 					<li>
 						<a
@@ -90,7 +90,7 @@ const about = {
 		</header>
 		<main class="">
 			<section
-				class="flex h-screen w-full items-center justify-center bg-black/40 text-white lg:justify-between lg:bg-inherit lg:text-black"
+				class="relative flex h-screen w-full items-center justify-center bg-black/40 text-white lg:justify-between lg:bg-inherit lg:text-black"
 			>
 				<div class="flex flex-col p-2 lg:p-4">
 					<span class="mx-auto font-display text-6xl lg:mx-0">Kali Kantina</span
