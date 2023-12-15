@@ -1,6 +1,6 @@
 @font-face {
 	font-family: 'Kawit';
-	src: url('/fonts/KawitFree-ExtItalic.otf') format('opentype');
+	src: url('/src/assets/fonts/KawitFree-ExtItalic.otf') format('opentype');
 	font-weight: bold;
 	font-style: italic;
 	font-display: swap;
