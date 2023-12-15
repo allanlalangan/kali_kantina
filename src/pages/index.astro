@@ -1,8 +1,11 @@
 ---
-import { contentfulClient, type EntryImage } from '../lib/contentful';
+import {
+	contentfulClient,
+	type About,
+	type EntryImage,
+} from '../lib/contentful';
 import { type Service } from '../lib/contentful';
 import { Image } from 'astro:assets';
-import hero_image from '../assets/mae-mu-LgnE31R9PGc-unsplash.jpg';
 
 const serviceEntries = await contentfulClient.getEntries<Service>({
 	content_type: 'service',
@@ -12,6 +15,16 @@ const services = serviceEntries.items.map((entry) => {
 	const { name, description } = entry.fields;
 	return { name, description, image: entry.fields.image as EntryImage };
 });
+
+const aboutEntries = await contentfulClient.getEntries<About>({
+	content_type: 'about',
+});
+
+const about = {
+	...aboutEntries.items[0].fields,
+	bioImage: aboutEntries.items[0].fields.bioImage as EntryImage,
+	heroImage: aboutEntries.items[0].fields.heroImage as EntryImage,
+};
 ---
 
 <html lang="en">
@@ -93,7 +106,9 @@ const services = serviceEntries.items.map((entry) => {
 				<div class="absolute -z-10 h-full w-full lg:static lg:w-1/2">
 					<Image
 						class="h-full w-full object-cover"
-						src={hero_image}
+						width={about.heroImage.fields.file.details.image.width / 5}
+						height={about.heroImage.fields.file.details.image.height / 5}
+						src={about.heroImage.fields.file.url}
 						alt="A bird."
 					/>
 				</div>
@@ -102,7 +117,10 @@ const services = serviceEntries.items.map((entry) => {
 				<div class="col-span-12 h-[50vh] lg:col-span-6">
 					<Image
 						class="h-full w-full object-cover"
-						src={hero_image}
+						width={about.bioImage.fields.file.details.image.width / 5}
+						height={about.bioImage.fields.file.details.image.height / 5}
+						format="webp"
+						src={about.bioImage.fields.file.url}
 						alt="A bird."
 					/>
 				</div>
@@ -110,16 +128,10 @@ const services = serviceEntries.items.map((entry) => {
 				<article
 					class="col-span-12 row-start-1 flex flex-col p-2 lg:col-span-6 lg:row-start-auto lg:p-4"
 				>
-					<h2 class="mx-auto text-4xl lg:mx-0">About</h2>
+					<h2 class="mx-auto text-4xl lg:mx-0">{about.title}</h2>
 					<div class="flex flex-col text-xl">
 						<p class="w-full">
-							Craft beer 8-bit lumbersexual sriracha YOLO forage fixie
-							single-origin coffee fam taiyaki organic shoreditch shaman
-							sartorial JOMO. Scenester hot chicken leggings, before they sold
-							out palo santo occupy marxism prism affogato portland art party
-							gluten-free pok pok cred. Retro shaman marxism truffaut food truck
-							tousled pabst. Blue bottle gorpcore neutral milk hotel hoodie
-							messenger bag.
+							{about.bio}
 						</p>
 					</div>
 				</article>
@@ -142,7 +154,7 @@ const services = serviceEntries.items.map((entry) => {
 									/>
 								</div>
 								<div class="flex flex-col justify-center p-2 lg:p-4">
-									<h3 class="text-2xl">{service.name}</h3>
+									<h3 class="text-2xl capitalize">{service.name}</h3>
 									<p class="w-full">{service.description}</p>
 								</div>
 							</article>
