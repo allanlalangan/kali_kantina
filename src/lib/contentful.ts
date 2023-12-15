@@ -35,3 +35,14 @@ export interface Service {
 		image: EntryFieldTypes.AssetLink;
 	};
 }
+
+export interface About {
+	contentTypeId: 'about';
+	fields: {
+		name: EntryFieldTypes.Symbol;
+		heroImage: EntryFieldTypes.AssetLink;
+		title: EntryFieldTypes.Text;
+		bio: EntryFieldTypes.Text;
+		bioImage: EntryFieldTypes.AssetLink;
+	};
+}
