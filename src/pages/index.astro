@@ -12,10 +12,12 @@ const serviceEntries = await contentfulClient.getEntries<Service>({
 	content_type: 'service',
 });
 
-const services = serviceEntries.items.map((entry) => {
-	const { name, description } = entry.fields;
-	return { name, description, image: entry.fields.image as EntryImage };
-});
+const services = serviceEntries.items
+	.map((entry) => {
+		const { name, description } = entry.fields;
+		return { name, description, image: entry.fields.image as EntryImage };
+	})
+	.slice(0, 4);
 
 const aboutEntries = await contentfulClient.getEntries<About>({
 	content_type: 'about',
@@ -26,6 +28,7 @@ const about = {
 	bioImage: aboutEntries.items[0].fields.bioImage as EntryImage,
 	heroImage: aboutEntries.items[0].fields.heroImage as EntryImage,
 };
+console.log(services);
 ---
 
 <html lang="en">
@@ -41,7 +44,7 @@ const about = {
 	</head>
 	<body class="relative bg-amber-50 font-body">
 		<header
-			class="absolute flex w-full flex-col-reverse items-end justify-between p-4 lg:flex-row lg:items-center"
+			class="absolute z-10 flex w-full flex-col-reverse items-end justify-between p-4 lg:flex-row lg:items-center"
 		>
 			<nav>
 				<ul
@@ -92,7 +95,9 @@ const about = {
 			<section
 				class="relative flex h-screen w-full items-center justify-center bg-black/40 text-white lg:justify-between lg:bg-inherit lg:text-black"
 			>
-				<div class="flex flex-col items-center p-2 lg:items-start lg:p-4">
+				<div
+					class="flex flex-col items-center p-2 lg:w-1/2 lg:items-start lg:p-4"
+				>
 					<span class="font-display text-8xl lg:mx-0">Kali Kantina</span>
 					<p class="text-center text-4xl lg:text-start lg:text-2xl">
 						Vancouver, Washington's own Filipino street food stand.
@@ -112,8 +117,22 @@ const about = {
 					/>
 				</div>
 			</section>
-			<section class="grid grid-cols-12 bg-emerald-950 text-white">
-				<div class="col-span-12 h-[50vh] lg:col-span-6">
+			<section
+				class="flex flex-col bg-emerald-950 text-white lg:flex-row-reverse"
+			>
+				<article
+					class="row-start-1 flex flex-col p-8 lg:row-start-auto lg:w-1/2 lg:p-4"
+				>
+					<h2 class="mx-auto mb-8 font-display text-6xl lg:mx-0">
+						{about.title}
+					</h2>
+					<div class="flex flex-col">
+						<p class="w-full text-2xl">
+							{about.bio}
+						</p>
+					</div>
+				</article>
+				<div class="flex h-[50vh] lg:w-1/2">
 					<Image
 						class="h-full w-full object-cover"
 						width={about.bioImage.fields.file.details.image.width / 5}
@@ -123,36 +142,33 @@ const about = {
 						alt="A bird."
 					/>
 				</div>
-
-				<article
-					class="col-span-12 row-start-1 flex flex-col p-8 lg:col-span-6 lg:row-start-auto lg:p-4"
-				>
-					<h2 class="mx-auto mb-8 text-6xl lg:mx-0">{about.title}</h2>
-					<div class="flex flex-col">
-						<p class="w-full text-2xl">
-							{about.bio}
-						</p>
-					</div>
-				</article>
 			</section>
 
-			<section class="grid grid-cols-12">
-				<h2 class="col-span-12 mx-auto p-8 text-6xl lg:p-4">Our Services</h2>
-				<div class="col-span-12 flex flex-col lg:flex-row">
+			<section class="flex flex-col">
+				<h2 class="mx-auto p-8 font-display text-6xl lg:p-4">Our Services</h2>
+				<div class="grid grid-cols-12 lg:gap-4 lg:px-4">
 					{
-						services.map((service) => (
-							<article class="flex flex-1 flex-col">
-								<div class="h-[50vh]">
-									<Image
-										width={service.image.fields.file.details.image.width / 5}
-										height={service.image.fields.file.details.image.height / 5}
-										format="webp"
-										class="h-full w-full flex-1 object-cover"
-										src={`https:${service.image.fields.file.url}`}
-										alt={service.image.fields.description}
-									/>
+						services?.map((service) => (
+							<article
+								class={`col-span-12 flex flex-1 flex-col lg:flex-row-reverse lg:border lg:border-red-700 ${
+									services.length % 4 === 0 ? 'xl:col-span-6' : ''
+								}`}
+							>
+								<div class="h-[50vh] lg:w-1/2">
+									{service?.image && (
+										<Image
+											width={service.image.fields.file.details.image.width / 5}
+											height={
+												service.image.fields.file.details.image.height / 5
+											}
+											format="webp"
+											class="h-full w-full flex-1 object-cover"
+											src={`https:${service.image.fields.file.url}`}
+											alt={service.image.fields.description}
+										/>
+									)}
 								</div>
-								<div class="flex flex-col justify-center p-8 lg:p-4">
+								<div class="flex flex-col justify-center p-8 lg:w-1/2 lg:p-4">
 									<h3 class="mb-4 text-4xl capitalize">{service.name}</h3>
 									<p class="w-full text-2xl">{service.description}</p>
 								</div>
