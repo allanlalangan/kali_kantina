@@ -7,6 +7,7 @@ import {
 import { type Service } from '../lib/contentful';
 import { Image } from 'astro:assets';
 import '../styles/global.css';
+import MainLayout from '../layouts/MainLayout.astro';
 
 const serviceEntries = await contentfulClient.getEntries<Service>({
 	content_type: 'service',
@@ -31,186 +32,98 @@ const about = {
 console.log(services);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
-			rel="stylesheet"
-		/>
-		<title>Kali Kantina</title>
-	</head>
-	<body class="relative bg-amber-50 font-body">
-		<header
-			class="absolute z-10 flex w-full flex-col-reverse items-end justify-between p-4 lg:flex-row lg:items-center"
+<MainLayout title="Kali Kantina">
+	<section
+		class="relative flex h-screen w-full items-center justify-center bg-black/40 text-white lg:justify-between lg:bg-inherit lg:text-black"
+	>
+		<div class="flex flex-col items-center p-2 lg:w-1/2 lg:items-start lg:p-4">
+			<span class="font-display text-8xl italic lg:mx-0">Kali Kantina</span>
+			<p class="text-center text-4xl lg:text-start lg:text-2xl">
+				Vancouver, Washington's own Filipino street food stand.
+			</p>
+			<button
+				class="mx-auto mt-4 w-fit bg-emerald-900 px-10 pb-7 pt-6 text-2xl text-white transition hover:bg-emerald-800 active:bg-emerald-950 lg:mx-0 lg:w-auto lg:px-6 lg:pb-4 lg:pt-3"
+				>View Our Menu</button
+			>
+		</div>
+		<div class="absolute -z-10 h-full w-full lg:static lg:w-1/2">
+			<Image
+				class="h-full w-full object-cover"
+				width={about.heroImage.fields.file.details.image.width / 5}
+				height={about.heroImage.fields.file.details.image.height / 5}
+				src={about.heroImage.fields.file.url}
+				alt="A bird."
+			/>
+		</div>
+	</section>
+	<section class="flex flex-col bg-emerald-950 text-white lg:flex-row-reverse">
+		<article
+			class="row-start-1 flex flex-col p-8 py-16 lg:row-start-auto lg:w-1/2 lg:p-4"
 		>
-			<nav>
-				<ul
-					class="mt-2 flex flex-col items-end gap-2 text-4xl text-white lg:mt-0 lg:flex-row lg:items-start lg:gap-4 lg:text-lg lg:text-black"
-				>
-					<li>
-						<a
-							href="#"
-							class="uppercase tracking-wide underline-offset-2 hover:underline"
-							>Upcoming Events</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="uppercase tracking-wide underline-offset-2 hover:underline"
-							>Menu</a
-						>
-					</li>
-				</ul>
-			</nav>
-			<div class="flex items-center border-b-2 pb-2 text-white">
-				<a href="#">
-					<svg
-						class="h-24 w-24 md:h-20 md:w-20 lg:h-12 lg:w-12"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						><path
-							fill="currentColor"
-							d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3Z"
-						></path>
-					</svg>
-				</a>
-				<a href="#">
-					<svg
-						class="h-24 w-24 md:h-20 md:w-20 lg:h-12 lg:w-12"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						><path
-							fill="currentColor"
-							d="M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02Z"
-						></path>
-					</svg>
-				</a>
-			</div>
-		</header>
-		<main class="">
-			<section
-				class="relative flex h-screen w-full items-center justify-center bg-black/40 text-white lg:justify-between lg:bg-inherit lg:text-black"
-			>
-				<div
-					class="flex flex-col items-center p-2 lg:w-1/2 lg:items-start lg:p-4"
-				>
-					<span class="font-display text-8xl italic lg:mx-0">Kali Kantina</span>
-					<p class="text-center text-4xl lg:text-start lg:text-2xl">
-						Vancouver, Washington's own Filipino street food stand.
-					</p>
-					<button
-						class="mx-auto mt-4 w-fit bg-emerald-900 px-10 pb-7 pt-6 text-2xl text-white transition hover:bg-emerald-800 active:bg-emerald-950 lg:mx-0 lg:w-auto lg:px-6 lg:pb-4 lg:pt-3"
-						>View Our Menu</button
-					>
-				</div>
-				<div class="absolute -z-10 h-full w-full lg:static lg:w-1/2">
-					<Image
-						class="h-full w-full object-cover"
-						width={about.heroImage.fields.file.details.image.width / 5}
-						height={about.heroImage.fields.file.details.image.height / 5}
-						src={about.heroImage.fields.file.url}
-						alt="A bird."
-					/>
-				</div>
-			</section>
-			<section
-				class="flex flex-col bg-emerald-950 text-white lg:flex-row-reverse"
-			>
-				<article
-					class="row-start-1 flex flex-col p-8 py-16 lg:row-start-auto lg:w-1/2 lg:p-4"
-				>
-					<h2
-						class="mx-auto mb-8 font-display text-8xl italic lg:mx-0 lg:text-6xl"
-					>
-						{about.title}
-					</h2>
+			<h2 class="mx-auto mb-8 font-display text-8xl italic lg:mx-0 lg:text-6xl">
+				{about.title}
+			</h2>
 
-					<p class="w-full text-4xl lg:text-2xl">
-						{about.bio}
-					</p>
-				</article>
-				<div class="flex h-[50vh] lg:w-1/2">
-					<Image
-						class="h-full w-full object-cover"
-						width={about.bioImage.fields.file.details.image.width / 5}
-						height={about.bioImage.fields.file.details.image.height / 5}
-						format="webp"
-						src={about.bioImage.fields.file.url}
-						alt="A bird."
-					/>
-				</div>
-			</section>
+			<p class="w-full text-4xl lg:text-2xl">
+				{about.bio}
+			</p>
+		</article>
+		<div class="flex h-[50vh] lg:w-1/2">
+			<Image
+				class="h-full w-full object-cover"
+				width={about.bioImage.fields.file.details.image.width / 5}
+				height={about.bioImage.fields.file.details.image.height / 5}
+				format="webp"
+				src={about.bioImage.fields.file.url}
+				alt="A bird."
+			/>
+		</div>
+	</section>
 
-			<section class="flex flex-col bg-zinc-950 pb-4 text-amber-50">
-				<h2
-					class="mx-auto p-8 py-16 font-display text-8xl italic lg:p-4 lg:text-6xl"
-				>
-					Our Services
-				</h2>
-				<div class="grid grid-cols-12 lg:gap-4 lg:px-4">
-					{
-						services?.map((service, i) => (
-							<article
-								class={`col-span-12 mb-4 flex flex-1 flex-col border-zinc-800 bg-zinc-950 p-4 lg:mb-0 lg:flex-row-reverse lg:border ${
-									services.length % 4 === 0 ? 'xl:col-span-6' : ''
-								} ${i === 0 ? 'border-y' : 'border-b'}`}
-							>
-								<div class="h-[50vh] lg:w-1/2">
-									{service?.image && (
-										<Image
-											width={service.image.fields.file.details.image.width / 5}
-											height={
-												service.image.fields.file.details.image.height / 5
-											}
-											format="webp"
-											class="h-full w-full flex-1 object-cover"
-											src={`https:${service.image.fields.file.url}`}
-											alt={service.image.fields.description}
-										/>
-									)}
-								</div>
-								<div class="flex flex-col justify-center p-8 py-16 lg:w-1/2 lg:p-4">
-									<h3 class="mb-4 text-6xl capitalize lg:text-4xl">
-										{service.name}
-									</h3>
-									<p class="w-full text-4xl lg:text-2xl">
-										{service.description}
-									</p>
-								</div>
-							</article>
-						))
-					}
-				</div>
-			</section>
-			<section class="grid grid-cols-12 bg-zinc-950 text-white">
-				<p
-					class="col-span-12 mx-auto flex flex-col items-center justify-center gap-4 p-4 text-4xl uppercase tracking-wide lg:flex-row"
-				>
-					<span>Locally Sourced</span>
-					<span class="hidden lg:block">◇</span>
-					<span>Veteran Owned</span>
-				</p>
-			</section>
-			<footer
-				class="flex w-full flex-col gap-2 bg-zinc-950 p-4 py-8 text-white lg:gap-4"
-			>
-				<span class="text-2xl">Kali Kantina © {new Date().getFullYear()}</span>
-				<section class="flex flex-col lg:flex-row">
-					<div class="flex flex-col text-lg lg:w-1/2">
-						<h3 class="text-xl uppercase tracking-wide">Contact</h3>
-						<p>123 Main St</p>
-						<p>Vancouver, WA 12345</p>
-						<p>(123) 456-7890</p>
-					</div>
-					<div class="flex flex-col lg:w-1/2">
-						<h3 class="uppercase tracking-wide">Hours</h3>
-					</div>
-				</section>
-			</footer>
-		</main>
-	</body>
-</html>
+	<section class="flex flex-col bg-zinc-950 pb-4 text-amber-50">
+		<h2
+			class="mx-auto p-8 py-16 font-display text-8xl italic lg:p-4 lg:text-6xl"
+		>
+			Our Services
+		</h2>
+		<div class="grid grid-cols-12 lg:gap-4 lg:px-4">
+			{
+				services?.map((service, i) => (
+					<article
+						class={`col-span-12 mb-4 flex flex-1 flex-col border-zinc-800 bg-zinc-950 p-4 lg:mb-0 lg:flex-row-reverse lg:border ${
+							services.length % 4 === 0 ? 'xl:col-span-6' : ''
+						} ${i === 0 ? 'border-y' : 'border-b'}`}
+					>
+						<div class="h-[50vh] lg:w-1/2">
+							{service?.image && (
+								<Image
+									width={service.image.fields.file.details.image.width / 5}
+									height={service.image.fields.file.details.image.height / 5}
+									format="webp"
+									class="h-full w-full flex-1 object-cover"
+									src={`https:${service.image.fields.file.url}`}
+									alt={service.image.fields.description}
+								/>
+							)}
+						</div>
+						<div class="flex flex-col justify-center p-8 py-16 lg:w-1/2 lg:p-4">
+							<h3 class="mb-4 text-6xl capitalize lg:text-4xl">
+								{service.name}
+							</h3>
+							<p class="w-full text-4xl lg:text-2xl">{service.description}</p>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</section>
+	<section class="grid grid-cols-12 bg-zinc-950 text-white">
+		<p
+			class="col-span-12 mx-auto flex flex-col items-center justify-center gap-4 p-4 text-4xl uppercase tracking-wide lg:flex-row"
+		>
+			<span>Locally Sourced</span>
+			<span class="hidden lg:block">◇</span>
+			<span>Veteran Owned</span>
+		</p>
+	</section>
+</MainLayout>
