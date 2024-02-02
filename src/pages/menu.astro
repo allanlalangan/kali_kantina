@@ -1,0 +1,58 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const menuItems = [
+	{
+		name: 'Longanisa Silog',
+		description:
+			'Sweet cured Filipino sausage served with rice, cucumbers, tomatoes, and a fried egg.',
+	},
+	{
+		name: 'Loganisa Sandwich',
+		description:
+			'Our sweet cured sausage patties served on a toasted ube pandesal bun with a fried egg, chipotle aioli, and pickled vegetables.',
+	},
+	{
+		name: 'Adobo',
+		description:
+			'A Filipino classic, chicken or pork marinated in vinegar, soy sauce, and garlic, then slowly braised until tender. Served with jasmine rice and a side of pickled vegetables.',
+	},
+	{
+		name: 'Kare Kare',
+		description:
+			'A rich and creamy peanut butter oxtail stew, served with jasmine rice and bagoong (shrimp paste).',
+	},
+];
+---
+
+<MainLayout title="Kali Kantina | Menu">
+	<section
+		class="flex h-screen w-full items-center justify-center bg-emerald-950"
+	>
+		<span class="font-display text-8xl italic text-white lg:mx-0">Our Menu</span
+		>
+	</section>
+	<section class="flex flex-col bg-zinc-950 pb-4 text-amber-50">
+		<h2
+			class="mx-auto p-8 py-16 font-display text-8xl italic lg:p-4 lg:text-6xl"
+		>
+			Currently Serving
+		</h2>
+		<div class="grid grid-cols-12 lg:gap-4 lg:px-4">
+			{
+				menuItems?.map((item, i) => (
+					<article
+						class={`col-span-12 mb-4 flex flex-1 flex-col border-zinc-800 bg-zinc-950 p-4 lg:mb-0 lg:flex-row-reverse lg:border ${
+							menuItems.length % 4 === 0 ? 'xl:col-span-6' : ''
+						} ${i === 0 ? 'border-y' : 'border-b'}`}
+					>
+						<div class="flex flex-col justify-center p-8 py-16 lg:p-4">
+							<h3 class="mb-4 text-6xl capitalize lg:text-4xl">{item.name}</h3>
+							<p class="w-full text-4xl lg:text-2xl">{item.description}</p>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</section>
+</MainLayout>
