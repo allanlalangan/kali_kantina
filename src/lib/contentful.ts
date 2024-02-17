@@ -27,6 +27,15 @@ export interface EntryImage {
 	};
 }
 
+export interface MenuItem {
+	contentTypeId: 'menuItem';
+	fields: {
+		name: EntryFieldTypes.Symbol;
+		description: EntryFieldTypes.Text;
+		image: EntryFieldTypes.AssetLink;
+	};
+}
+
 export interface Service {
 	contentTypeId: 'service';
 	fields: {

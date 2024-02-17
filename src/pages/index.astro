@@ -6,7 +6,6 @@ import {
 } from '../lib/contentful';
 import { type Service } from '../lib/contentful';
 import { Image } from 'astro:assets';
-import '../styles/global.css';
 import MainLayout from '../layouts/MainLayout.astro';
 
 const serviceEntries = await contentfulClient.getEntries<Service>({
