@@ -12,9 +12,25 @@ const menuItemEntries = await contentfulClient.getEntries<MenuItem>({
 });
 
 const menuItems = menuItemEntries.items.map((entry) => {
-	const { name, description } = entry.fields;
-	return { name, description, image: entry.fields.image as EntryImage };
+	const { name, description, category } = entry.fields;
+	return {
+		name,
+		category,
+		description,
+		image: entry.fields.image as EntryImage,
+	};
 });
+
+const classic_menuItems = menuItems.filter(
+	(item) => item.category === 'classic',
+);
+const fusion_menuItems = menuItems.filter((item) => item.category === 'fusion');
+const beverage_menuItems = menuItems.filter(
+	(item) => item.category === 'beverage',
+);
+const dessert_menuItems = menuItems.filter(
+	(item) => item.category === 'dessert',
+);
 ---
 
 <MainLayout title="Kali Kantina | Menu">
@@ -30,8 +46,148 @@ const menuItems = menuItemEntries.items.map((entry) => {
 		>
 			Currently Serving
 		</h2>
-		<div class="flex flex-col items-center lg:gap-4 lg:px-4">
-			{
+
+		{
+			fusion_menuItems.length > 0 && (
+				<>
+					<h3 class="mx-auto w-full border-t border-zinc-800 p-4 text-center text-6xl tracking-wide lg:mb-4 lg:w-2/3 lg:border-y lg:text-4xl">
+						Our Creations
+					</h3>
+					<ul class="mb-4 flex flex-col items-center gap-4">
+						{fusion_menuItems?.map((item, i) => (
+							<li
+								class={`flex flex-1 flex-col border-zinc-800 bg-zinc-950 p-4 lg:mb-0 lg:w-2/3 lg:flex-row lg:border ${
+									i === 0 ? 'border-y' : 'border-b'
+								}`}
+							>
+								<div class="flex flex-1 flex-col justify-center p-8 py-16 lg:p-4">
+									<h3 class="mb-4 text-6xl capitalize lg:text-4xl">
+										{item.name}
+									</h3>
+									<p class="w-full text-4xl lg:text-2xl">{item.description}</p>
+								</div>
+								{item.image && (
+									<Image
+										class="h-[32rem] w-full object-cover lg:w-1/2"
+										width={item.image.fields.file.details.image.width / 5}
+										height={item.image.fields.file.details.image.height / 5}
+										src={item.image.fields.file.url}
+										alt={`Image of ${item.name}`}
+									/>
+								)}
+							</li>
+						))}
+					</ul>
+				</>
+			)
+		}
+
+		{
+			classic_menuItems.length > 0 && (
+				<>
+					<h3 class="mx-auto w-full border-t border-zinc-800 p-4 text-center text-6xl tracking-wide lg:mb-4 lg:w-2/3 lg:border-y lg:text-4xl">
+						Classics
+					</h3>
+					<ul class="mb-4 flex flex-col items-center gap-4">
+						{classic_menuItems?.map((item, i) => (
+							<li
+								class={`flex flex-1 flex-col border-zinc-800 bg-zinc-950 p-4 lg:mb-0 lg:w-2/3 lg:flex-row lg:border ${
+									i === 0 ? 'border-y' : 'border-b'
+								}`}
+							>
+								<div class="flex flex-1 flex-col justify-center p-8 py-16 lg:p-4">
+									<h3 class="mb-4 text-6xl capitalize lg:text-4xl">
+										{item.name}
+									</h3>
+									<p class="w-full text-4xl lg:text-2xl">{item.description}</p>
+								</div>
+								{item.image && (
+									<Image
+										class="h-[32rem] w-full object-cover lg:w-1/2"
+										width={item.image.fields.file.details.image.width / 5}
+										height={item.image.fields.file.details.image.height / 5}
+										src={item.image.fields.file.url}
+										alt={`Image of ${item.name}`}
+									/>
+								)}
+							</li>
+						))}
+					</ul>
+				</>
+			)
+		}
+
+		{
+			dessert_menuItems.length > 0 && (
+				<>
+					<h3 class="mx-auto w-full border-t border-zinc-800 p-4 text-center text-6xl tracking-wide lg:mb-4 lg:w-2/3 lg:border-y lg:text-4xl">
+						Desserts
+					</h3>
+					<ul class="mb-4 flex flex-col items-center gap-4">
+						{dessert_menuItems?.map((item, i) => (
+							<li
+								class={`flex flex-1 flex-col border-zinc-800 bg-zinc-950 p-4 lg:mb-0 lg:w-2/3 lg:flex-row lg:border ${
+									i === 0 ? 'border-y' : 'border-b'
+								}`}
+							>
+								<div class="flex flex-1 flex-col justify-center p-8 py-16 lg:p-4">
+									<h3 class="mb-4 text-6xl capitalize lg:text-4xl">
+										{item.name}
+									</h3>
+									<p class="w-full text-4xl lg:text-2xl">{item.description}</p>
+								</div>
+								{item.image && (
+									<Image
+										class="h-[32rem] w-full object-cover lg:w-1/2"
+										width={item.image.fields.file.details.image.width / 5}
+										height={item.image.fields.file.details.image.height / 5}
+										src={item.image.fields.file.url}
+										alt={`Image of ${item.name}`}
+									/>
+								)}
+							</li>
+						))}
+					</ul>
+				</>
+			)
+		}
+
+		{
+			beverage_menuItems.length > 0 && (
+				<>
+					<h3 class="mx-auto w-full border-t border-zinc-800 p-4 text-center text-6xl tracking-wide lg:mb-4 lg:w-2/3 lg:border-y lg:text-4xl">
+						Beverages
+					</h3>
+					<ul class="mb-4 flex flex-col items-center gap-4">
+						{beverage_menuItems?.map((item, i) => (
+							<li
+								class={`flex flex-1 flex-col border-zinc-800 bg-zinc-950 p-4 lg:mb-0 lg:w-2/3 lg:flex-row lg:border ${
+									i === 0 ? 'border-y' : 'border-b'
+								}`}
+							>
+								<div class="flex flex-1 flex-col justify-center p-8 py-16 lg:p-4">
+									<h3 class="mb-4 text-6xl capitalize lg:text-4xl">
+										{item.name}
+									</h3>
+									<p class="w-full text-4xl lg:text-2xl">{item.description}</p>
+								</div>
+								{item.image && (
+									<Image
+										class="h-[32rem] w-full object-cover lg:w-1/2"
+										width={item.image.fields.file.details.image.width / 5}
+										height={item.image.fields.file.details.image.height / 5}
+										src={item.image.fields.file.url}
+										alt={`Image of ${item.name}`}
+									/>
+								)}
+							</li>
+						))}
+					</ul>
+				</>
+			)
+		}
+
+		<!-- {
 				menuItems?.map((item, i) => (
 					<article
 						class={`mb-4 flex flex-1 flex-col border-zinc-800 bg-zinc-950 p-4 lg:mb-0 lg:w-2/3 lg:flex-row lg:border ${
@@ -53,7 +209,6 @@ const menuItems = menuItemEntries.items.map((entry) => {
 						)}
 					</article>
 				))
-			}
-		</div>
+			} -->
 	</section>
 </MainLayout>

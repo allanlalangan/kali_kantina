@@ -31,6 +31,7 @@ export interface MenuItem {
 	contentTypeId: 'menuItem';
 	fields: {
 		name: EntryFieldTypes.Symbol;
+		category: EntryFieldTypes.Symbol;
 		description: EntryFieldTypes.Text;
 		image: EntryFieldTypes.AssetLink;
 	};
