@@ -56,3 +56,14 @@ export interface About {
 		bioImage: EntryFieldTypes.AssetLink;
 	};
 }
+
+export interface Event {
+	contentTypeId: 'event';
+	fields: {
+		name: EntryFieldTypes.Symbol;
+		startTime: EntryFieldTypes.Date;
+		endTime: EntryFieldTypes.Date;
+		address: EntryFieldTypes.Symbol;
+		website: EntryFieldTypes.Symbol;
+	};
+}
